@@ -31,6 +31,11 @@ class SEOTools implements SEOContract
         return app('seotools.twitter');
     }
 
+    public function facebook()
+    {
+        return app('seotools.facebook');
+    }
+
     /**
      * Setup title for all seo providers.
      *
@@ -113,9 +118,9 @@ class SEOTools implements SEOContract
 
     /**
      * Generate from all seo providers.
-     * 
+     *
      * @param bool $minify
-     * 
+     *
      * @return string
      */
     public function generate($minify = false)
@@ -125,6 +130,8 @@ class SEOTools implements SEOContract
         $html .= $this->opengraph()->generate();
         $html .= PHP_EOL;
         $html .= $this->twitter()->generate();
+        $html .= PHP_EOL;
+        $html .= $this->facebook()->generate();
 
         return ($minify) ? str_replace(PHP_EOL, '', $html) : $html;
     }

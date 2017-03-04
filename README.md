@@ -61,9 +61,10 @@ In order to use the `SEOMeta` facade, you need to register it on the `config/app
 // file START ommited
     'aliases' => [
         // other Facades ommited
-        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
-        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
-        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'SEOMeta'         => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph'       => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'         => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'Facebook'   => Artesaos\SEOTools\Facades\FacebookGraph::class,
         // or
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
@@ -97,6 +98,8 @@ In `seotools.php` configuration file you can determine the properties of the def
  - **defaults** - Are the properties that will always be displayed and when no other value is set instead. **You can add additional tags** that are not included in the original configuration file.
 - twitter
  - **defaults** - Are the properties that will always be displayed and when no other value is set instead. **You can add additional tags** that are not included in the original configuration file.
+ - facebook
+  - **defaults** - Are the properties that will always be displayed and when no other value is set instead. **You can add additional tags** that are not included in the original configuration file.
 
 ## 5 - Usage
 
@@ -109,6 +112,7 @@ $seotools = app('seotools');
 $metatags = app('seotools.metatags');
 $twitter = app('seotools.twitter');
 $opengraph = app('seotools.opengraph');
+$facebook = app('seotools.facebook');
 
 // The behavior is the same as the facade
 // --------
@@ -126,11 +130,15 @@ With **OpenGraph** you can create opengraph tags to the `head`
 ### Twitter for Twitter Cards tags Generator
 With **Twitter** you can create opengraph tags to the `head`
 
+### Facebook for Facebook Graph tags Generator
+With **Facebook** you can create graph tags to the `head`
+
 #### In your controller
 ```php
 use SEOMeta;
 use OpenGraph;
 use Twitter;
+use Facebook;
 ## or
 use SEO;
 
@@ -153,6 +161,8 @@ class CommomController extends Controller
 
         Twitter::setTitle('Homepage');
         Twitter::setSite('@LuizVinicius73');
+        
+        Facebook::setAppId('897249239890');
 
         ## Or
 
@@ -162,6 +172,7 @@ class CommomController extends Controller
         SEO::setCanonical('https://codecasts.com.br/lesson');
         SEO::opengraph()->addProperty('type', 'articles');
         SEO::twitter()->setSite('@LuizVinicius73');
+        SEO::facebook()->setAppId('897249239890');
 
         $posts = Post::all();
 
@@ -355,6 +366,7 @@ class CommomController extends Controller
         $this->seo()->opengraph()->setUrl('http://current.url.com');
         $this->seo()->opengraph()->addProperty('type', 'articles');
         $this->seo()->twitter()->setSite('@LuizVinicius73');
+        $this->seo()->facebook()->setAppId('897249239890');
 
         $posts = Post::all();
 
@@ -373,6 +385,7 @@ class CommomController extends Controller
 	{!! SEOMeta::generate() !!}
 	{!! OpenGraph::generate() !!}
 	{!! Twitter::generate() !!}
+	{!! Facebook::generate() !!}
 	    <!-- OR -->
 	{!! SEO::generate() !!}
 	
@@ -416,6 +429,8 @@ class CommomController extends Controller
     <meta name="twitter:card"content="summary" />
     <meta name="twitter:title"content="Title" />
     <meta name="twitter:site"content="@LuizVinicius73" />
+    
+    <meta property="fb:app_id" content="897249239890" />
 
 </head>
 <body>
@@ -509,6 +524,20 @@ Twitter::addValue($key, $value)
 
 // Generate html tags
 Twitter::generate();
+```
+
+### API (FacebookGraph)
+
+```php
+Facebook::addValue($key, $value); // value can be string or array
+Facebook::setAppId($id); // id of the Facebook App or Page
+
+// You can chain methods
+Facebook::addValue($key, $value)
+            ->setAppId($id);
+
+// Generate html tags
+Facebook::generate();
 ```
 
 #### API (SEO)

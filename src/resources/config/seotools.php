@@ -46,4 +46,12 @@ return [
           //'site'        => '@LuizVinicius73',
         ],
     ],
+    'facebook' => [
+        /*
+         * The default values to be used by the facebook graph generator
+         */
+        'defaults' => [
+            //'app_id'    => '72463847847234898'
+        ]
+    ]
 ];

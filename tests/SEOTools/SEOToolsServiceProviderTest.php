@@ -45,6 +45,10 @@ class SEOToolsServiceProviderTest extends BaseTest
                 'Artesaos\SEOTools\Contracts\TwitterCards',
                 'Artesaos\SEOTools\TwitterCards',
             ],
+            [
+                'Artesaos\SEOTools\Contracts\FacebookGraph',
+                'Artesaos\SEOTools\FacebookGraph',
+            ],
         ];
     }
 }

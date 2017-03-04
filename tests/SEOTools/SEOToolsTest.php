@@ -5,6 +5,7 @@ namespace Artesaos\SEOTools\Tests;
 use Artesaos\SEOTools\Contracts\MetaTags;
 use Artesaos\SEOTools\Contracts\OpenGraph;
 use Artesaos\SEOTools\Contracts\TwitterCards;
+use Artesaos\SEOTools\Contracts\FacebookGraph;
 use Artesaos\SEOTools\SEOTools;
 
 /**
@@ -40,6 +41,11 @@ class SEOToolsTest extends BaseTest
     public function test_twitter_instance()
     {
         $this->assertInstanceOf(TwitterCards::class, $this->seoTools->twitter());
+    }
+
+    public function test_facebook_instance()
+    {
+        $this->assertInstanceOf(FacebookGraph::class, $this->seoTools->facebook());
     }
 
     public function test_set_title()
